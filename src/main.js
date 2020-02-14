@@ -81,6 +81,10 @@ let turn = variables.player1.getSymbol()
 
 const handleTurn = (event) => {
   let index = variables.cells.findIndex((cell) => cell === event.target)
+  if (typeof variables.board[index] === 'string') {
+    variables.messageTitle.textContent = `Opss this cell is taken, try again`
+    return
+  }
   variables.board[index] = turn
   event.target.textContent = turn
   turn = turn === 'X' ? variables.player2.getSymbol() : variables.player1.getSymbol()
@@ -90,18 +94,19 @@ const handleTurn = (event) => {
 
 const checkWinner = () => {
   let winner = ''
+  let flag = false
   variables.winningCombos.forEach((item, i) => {
     if(variables.board[item[0]] === variables.board[item[1]] && variables.board[item[1]] === variables.board[item[2]]) {
       document.getElementById('board').removeEventListener('click', handleTurn)
       winner = variables.board[item[0]]
       variables.messageTitle.textContent = `Player ${winner} won!`
+      flag = true
       return
-    } else if(variables.board.every(function(element) { return typeof element === 'string'; })) {
-      variables.messageTitle.textContent = `It's a ${winner}`
+    } else if(variables.board.every(function(element) { return typeof element === 'string'; }) && !flag) {
       winner = 'Tie!'
+      variables.messageTitle.textContent = `It's a ${winner}`
     }
   });
-  console.log(winner)
   return winner
 }
 
