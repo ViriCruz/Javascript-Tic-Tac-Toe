@@ -42,19 +42,21 @@ const helpers = (() => {
   const checkWinner = () => {
     let winner = '';
     let flag = false;
+    let finish = false;
     variables.winningCombos.forEach((item) => {
       if (variables.board[item[0]] === variables.board[item[1]]
           && variables.board[item[1]] === variables.board[item[2]]) {
-        document.getElementById('board').removeEventListener('click', handleTurn);
         winner = variables.board[item[0]];
         variables.messageTitle.textContent = `Player ${winner} won!`;
         flag = true;
+        finish = true;
       } else if (variables.board.every((element) => typeof element === 'string') && !flag) {
         winner = 'Tie!';
+        finish = true;
         variables.messageTitle.textContent = `It's a ${winner}`;
       }
     });
-    return winner;
+    return finish;
   };
 
   const handleTurn = (event) => {
@@ -67,7 +69,7 @@ const helpers = (() => {
     event.target.textContent = turn;
     turn = turn === 'X' ? variables.player2.getSymbol() : variables.player1.getSymbol();
     variables.messageTitle.textContent = `It's ${turn}'s turn`;
-    checkWinner();
+    if (checkWinner()) document.getElementById('board').removeEventListener('click', handleTurn);
   };
 
   return {
