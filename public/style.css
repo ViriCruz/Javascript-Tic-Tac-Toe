@@ -9,6 +9,16 @@ h2 {
   font-size: 35px;
   margin: 10px;
 }
+
+label {
+  display: block;
+  text-align: left;
+}
+
+.board-container{
+  display: none;
+}
+
 .flex-container {
   display: flex;
   justify-content: center;
