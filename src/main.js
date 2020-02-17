@@ -19,8 +19,8 @@ const variables = (() => {
     [2, 4, 6],
   ];
   const board = Array.from(Array(9).keys());
-  let player1
-  let player2
+  let player1;
+  let player2;
   const messageTitle = document.querySelector('h2');
   return {
     cells,
@@ -33,7 +33,7 @@ const variables = (() => {
 })();
 
 const helpers = (() => {
-  let turn
+  let turn;
 
   const checkWinner = () => {
     let winner = '';
@@ -42,7 +42,7 @@ const helpers = (() => {
     variables.winningCombos.forEach((item) => {
       if (variables.board[item[0]] === variables.board[item[1]]
           && variables.board[item[1]] === variables.board[item[2]]) {
-        winner = variables.board[item[0]] === 'X'? variables.player1.getName() : variables.player2.getName()
+        winner = variables.board[item[0]] === 'X' ? variables.player1.getName() : variables.player2.getName();
         variables.messageTitle.textContent = `Player ${winner} won!`;
         flag = true;
         finish = true;
@@ -69,42 +69,44 @@ const helpers = (() => {
   };
 
   const playerNames = () => {
-    const player1Name = document.querySelector('input[name="player1"]').value
-    const player2Name = document.querySelector('input[name="player2"]').value
-    variables.player1 = Player(player1Name, 'X' )
-    variables.player2 = Player(player2Name, '0' )
-  }
+    const player1Name = document.querySelector('input[name="player1"]').value;
+    const player2Name = document.querySelector('input[name="player2"]').value;
+    variables.player1 = Player(player1Name, 'X');
+    variables.player2 = Player(player2Name, '0');
+  };
 
   const setTurn = () => {
-    turn = variables.player1.getSymbol()
-  }
+    turn = variables.player1.getSymbol();
+  };
 
   const startGame = () => {
-    playerNames()
-    setTurn()
+    playerNames();
+    setTurn();
     document.querySelector('.form-container').style.display = 'none';
     document.querySelector('.board-container').style.display = 'block';
-  }
+  };
 
   return {
     handleTurn,
     checkWinner,
     startGame,
     playerNames,
-    setTurn
+    setTurn,
   };
 })();
 
 function init() {
-  document.getElementById('start-game').addEventListener('click', () =>  {
-    helpers.startGame()
+  document.getElementById('start-game').addEventListener('click', () => {
+    helpers.startGame();
   });
   document.getElementById('board').addEventListener('click', helpers.handleTurn);
   document.getElementById('reset-button').addEventListener('click', () => {
-    variables.cells.forEach(cell => cell.textContent = '')
-    helpers.setTurn()
+    variables.cells.forEach((item) => {
+      item.textContent = '';
+    });
+    helpers.setTurn();
     variables.board = Array.from(Array(9).keys());
-    init()
+    init();
   });
 }
 
