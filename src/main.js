@@ -96,7 +96,7 @@ const helpers = (() => {
 })();
 
 
-window.addEventListener('load', function() {
+window.addEventListener('load', () => {
   function init() {
     document.getElementById('start-game').addEventListener('click', () => {
       helpers.startGame();
@@ -111,11 +111,11 @@ window.addEventListener('load', function() {
       init();
     });
   }
-  init()
-})
+  init();
+});
 
 module.exports = {
   helpers,
   Player,
-  variables
-}
+  variables,
+};
