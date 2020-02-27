@@ -55,7 +55,7 @@ const helpers = (() => {
     return finish;
   };
 
-  const handleTurn = () => {
+  const handleTurn = (event) => {
     const index = variables.cells.findIndex((cell) => cell === event.target);
     if (typeof variables.board[index] === 'string') {
       variables.messageTitle.textContent = 'Opss this cell is taken, try again';
