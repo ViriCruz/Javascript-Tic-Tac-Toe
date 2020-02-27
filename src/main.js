@@ -55,7 +55,7 @@ const helpers = (() => {
     return finish;
   };
 
-  const handleTurn = (event) => {
+  const handleTurn = () => {
     const index = variables.cells.findIndex((cell) => cell === event.target);
     if (typeof variables.board[index] === 'string') {
       variables.messageTitle.textContent = 'Opss this cell is taken, try again';
@@ -95,19 +95,27 @@ const helpers = (() => {
   };
 })();
 
-function init() {
-  document.getElementById('start-game').addEventListener('click', () => {
-    helpers.startGame();
-  });
-  document.getElementById('board').addEventListener('click', helpers.handleTurn);
-  document.getElementById('reset-button').addEventListener('click', () => {
-    variables.cells.forEach((item) => {
-      item.textContent = '';
-    });
-    helpers.setTurn();
-    variables.board = Array.from(Array(9).keys());
-    init();
-  });
-}
 
-init();
+window.addEventListener('load', function() {
+  function init() {
+    document.getElementById('start-game').addEventListener('click', () => {
+      helpers.startGame();
+    });
+    document.getElementById('board').addEventListener('click', helpers.handleTurn);
+    document.getElementById('reset-button').addEventListener('click', () => {
+      variables.cells.forEach((item) => {
+        item.textContent = '';
+      });
+      helpers.setTurn();
+      variables.board = Array.from(Array(9).keys());
+      init();
+    });
+  }
+  init()
+})
+
+module.exports = {
+  helpers,
+  Player,
+  variables
+}
