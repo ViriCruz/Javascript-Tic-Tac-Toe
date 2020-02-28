@@ -95,19 +95,27 @@ const helpers = (() => {
   };
 })();
 
-function init() {
-  document.getElementById('start-game').addEventListener('click', () => {
-    helpers.startGame();
-  });
-  document.getElementById('board').addEventListener('click', helpers.handleTurn);
-  document.getElementById('reset-button').addEventListener('click', () => {
-    variables.cells.forEach((item) => {
-      item.textContent = '';
-    });
-    helpers.setTurn();
-    variables.board = Array.from(Array(9).keys());
-    init();
-  });
-}
 
-init();
+window.addEventListener('load', () => {
+  function init() {
+    document.getElementById('start-game').addEventListener('click', () => {
+      helpers.startGame();
+    });
+    document.getElementById('board').addEventListener('click', helpers.handleTurn);
+    document.getElementById('reset-button').addEventListener('click', () => {
+      variables.cells.forEach((item) => {
+        item.textContent = '';
+      });
+      helpers.setTurn();
+      variables.board = Array.from(Array(9).keys());
+      init();
+    });
+  }
+  init();
+});
+
+module.exports = {
+  helpers,
+  Player,
+  variables,
+};
